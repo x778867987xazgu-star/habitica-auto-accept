@@ -1,0 +1,20 @@
+# 🪄 Habitica Auto-Accept Quest Script
+# This script automatically accepts new quests on Habitica.
+# Make sure you have set your HABITICA_USER_ID and HABITICA_API_TOKEN in GitHub Secrets.
+
+name: Habitica Auto-Accept Quest
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # Runs every hour
+  workflow_dispatch:     # Allows manual trigger
+
+jobs:
+  auto-accept:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Auto-Accept Script
+        run: |
+          curl -X POST https://habitica.com/api/v3/quests/accept-all \
+          -H "x-api-user: ${{ secrets.HABITICA_USER_ID }}" \
+          -H "x-api-key: ${{ secrets.HABITICA_API_TOKEN }}"
